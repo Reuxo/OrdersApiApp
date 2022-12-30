@@ -1,14 +1,12 @@
-package com.example.ordersapiapp.model.dao.item;
-
+package com.example.ordersapiapp.model.dao.client;
 
 import com.example.ordersapiapp.model.dao.IDaoBase;
+import com.example.ordersapiapp.model.entity.Client;
 import com.example.ordersapiapp.model.entity.Item;
 
 import java.util.List;
 import java.util.Optional;
 
-//dao - интерфейс для сущности Item
-
-public interface IDaoItem extends IDaoBase<Item> {
+public interface IDaoClient extends IDaoBase<Client> {
 
 }
