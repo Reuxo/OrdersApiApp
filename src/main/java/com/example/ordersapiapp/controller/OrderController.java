@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/order")
+@RequestMapping(path = "order")
 public class OrderController {
 
     @Autowired
@@ -31,18 +31,23 @@ public class OrderController {
 
     @PostMapping("save")
     public Order save(@RequestParam String description,
-                     @RequestParam Integer clientId) {
-        Client client = iDaoClient.findById(clientId).get();
-        Order order = new Order(description, client);
-        return iDaoOrder.save(order);
+                      @RequestParam Integer clientId) {
+        if (iDaoClient.findById(clientId).isEmpty())
+            return null;
+        return iDaoOrder.save(new Order(description, iDaoClient.findById(clientId).get()));
     }
 
-    @PostMapping("update")
+
+    @PostMapping("update")  // не работает 
     public Order update(@RequestParam Integer id,
-                       @RequestParam String description,
-                       @RequestParam Integer clientId) {
+                        @RequestParam String description,
+                        @RequestParam Integer clientId) {
+        if (iDaoClient.findById(clientId).isEmpty()) {
+            return null;
+        }
         Client client = iDaoClient.findById(clientId).get();
-        Order order = new Order(description, client);
+        client.setId(clientId);
+        Order order = new Order(iDaoOrder.findById(id).get().getId(), description, client);
         return iDaoOrder.save(order);
     }
 
@@ -50,6 +55,5 @@ public class OrderController {
     public Order delete(@RequestParam Integer id) {
         return iDaoOrder.delete(id);
     }
-
 
 }

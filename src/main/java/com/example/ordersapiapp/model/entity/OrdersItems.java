@@ -1,9 +1,10 @@
 package com.example.ordersapiapp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "OredersItems_t")
+@Table(name = "orders_items_t")
 public class OrdersItems {
 
     @Id
@@ -14,11 +15,13 @@ public class OrdersItems {
     private Long quantity; //Кол-во единиц товаров
 
     @ManyToOne
-    @JoinColumn(name = "item_id" , nullable = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    @JsonIgnore
     private Item item;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
     private Order order;
 
     public Integer getId() {
@@ -54,8 +57,13 @@ public class OrdersItems {
     }
 
 
-
     public OrdersItems() {
+    }
+
+    public OrdersItems(Long quantity, Item item, Order order) {
+        this.quantity = quantity;
+        this.item = item;
+        this.order = order;
     }
 
     public OrdersItems(Integer id, Long quantity, Item item, Order order) {

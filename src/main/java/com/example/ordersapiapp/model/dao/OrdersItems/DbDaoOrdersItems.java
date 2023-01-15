@@ -5,10 +5,12 @@ import com.example.ordersapiapp.model.entity.Order;
 import com.example.ordersapiapp.model.entity.OrdersItems;
 import com.example.ordersapiapp.model.repository.OrdersItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class DbDaoOrdersItems implements IDaoOrdersItems {
 
     @Autowired

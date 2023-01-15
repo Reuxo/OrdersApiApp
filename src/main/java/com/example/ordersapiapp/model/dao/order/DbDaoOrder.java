@@ -1,6 +1,7 @@
 package com.example.ordersapiapp.model.dao.order;
 
 import com.example.ordersapiapp.model.entity.Order;
+import com.example.ordersapiapp.model.repository.ClientRepository;
 import com.example.ordersapiapp.model.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class DbDaoOrder implements IDaoOrder{
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     public List<Order> findAll() {

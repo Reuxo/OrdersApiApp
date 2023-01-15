@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IDaoOrder extends IDaoBase<Order> {
-
+    Optional<Order> findById(Integer id);
 }

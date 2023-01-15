@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IDaoClient extends IDaoBase<Client> {
-
+    Optional<Client> findById(Integer id);
 }

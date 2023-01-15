@@ -1,5 +1,6 @@
 package com.example.ordersapiapp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,7 +14,8 @@ public class Client {
     @Column(nullable = false, length = 100)
     private String nameClient;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Order> orders;
 
     public Integer getId() {
@@ -50,6 +52,12 @@ public class Client {
     public Client(Integer id, String nameClient) {
         this.id = id;
         this.nameClient = nameClient;
+    }
+
+    public Client(Integer id, String nameClient, Set<Order> orders) {
+        this.id = id;
+        this.nameClient = nameClient;
+        this.orders = orders;
     }
 
     @Override

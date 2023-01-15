@@ -1,6 +1,7 @@
 package com.example.ordersapiapp.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -20,6 +21,7 @@ public class Item {
     private Long itemArticle;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<OrdersItems> ordersItems;
 
 
