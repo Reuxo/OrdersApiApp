@@ -1,25 +1,29 @@
 package com.example.ordersapiapp.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.Set;
+
 //сущность продукт
+@Entity
+@Table(name = "item_t")
 public class Item {
 
     //поля
-    private  Integer id;
-    private  String itemName;
-    private  Long itemArticle;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false, length = 200)
+    private String itemName;
+    @Column(nullable = false)
+    private Long itemArticle;
 
-    public Item() {
-        id = -1;
-        itemName = "undefined";
-        itemArticle = -1L;
-    }
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<OrdersItems> ordersItems;
 
-    public Item(Integer id, String itemName, Long itemArticle) {
-        this.id = id;
-        this.itemName = itemName;
-        this.itemArticle = itemArticle;
-    }
 
     public Integer getId() {
         return id;
@@ -42,6 +46,31 @@ public class Item {
     }
 
     public void setItemArticle(Long itemArticle) {
+        this.itemArticle = itemArticle;
+    }
+
+    public Set<OrdersItems> getOrdersItems() {
+        return ordersItems;
+    }
+
+    public void setOrdersItems(Set<OrdersItems> ordersItems) {
+        this.ordersItems = ordersItems;
+    }
+
+    public Item() {
+        id = -1;
+        itemName = "undefined";
+        itemArticle = -1L;
+    }
+
+    public Item(String itemName, Long itemArticle) {
+        this.itemName = itemName;
+        this.itemArticle = itemArticle;
+    }
+
+    public Item(Integer id, String itemName, Long itemArticle) {
+        this.id = id;
+        this.itemName = itemName;
         this.itemArticle = itemArticle;
     }
 
